@@ -14,8 +14,27 @@ mongoose.connect(process.env.CONNECTIOSTRING)
 
 app.use(middleware)
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(path.resolve(__dirname, 'public')));
+
+const session = require('express-session');
+const mongoStore = require('connect-mongo')
+const flashMsg = require('connect-flash');
+
+app.use(
+  session({
+    secret:'JJrVbr4ctEkO9h4',
+    store: mongoStore.create({mongoUrl: process.env.CONNECTIOSTRING}),
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+      maxAge:1000 * 60 * 60 * 24 * 3,
+      httpOnly:true
+    }
+  })
+);
+
+app.use(flashMsg());
+
 
 app.set('views', path.resolve(__dirname, 'src', 'views'));
 app.set('view engine', 'ejs');
@@ -29,5 +48,7 @@ app.on('done', () => {
     console.log('Servidor executando na porta 3000');
   });
 })
+
+
 
 

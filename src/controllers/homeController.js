@@ -8,10 +8,15 @@ HomeModel.create({
 .catch(e => console.log(e))
 
 exports.paginaInicial = (req, res) => {
-    res.render('index');
-  };
-  
-  exports.trataPost = (req, res) => {
+  res.render('index',{
+    titulo: 'Titulo da página',
+    numeros:[0,1,3]
+  });
+  return;
+};
+
+
+exports.trataPost = (req, res) => {
     res.send(req.body)
     return;
   };

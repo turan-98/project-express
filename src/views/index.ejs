@@ -8,6 +8,11 @@
   <section class="container">
     <%= titulo %>
   </section>
+  <form action="/" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <input type="text" name="cliente">
+    <button>Submit</button>
+  </form>
 
   <script src="./assets/js/bundle.js"></script>
 </body>
